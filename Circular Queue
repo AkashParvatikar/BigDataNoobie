@@ -1,0 +1,108 @@
+import java.util.Scanner; //utility 
+
+public class CircularQueue{  //file name has to be circular queue
+	private int head, tail;
+	private static final int SIZE=5;   //once for the whole class and final: no change ie it's a constant
+	private String[] q = new String[SIZE]; //size of q with String data format
+	private String name;
+	Scanner input = new Scanner(System.in); //taking input from keyboard
+	
+	public CircularQueue(){  //used to initialize the variables |should have same name as class name(Constructor) otherwise it won't initialize|no datatype/return type
+		head = -1;
+		tail = -1;
+  	}; //end constructor
+	
+  	public void insertQueue(){  //all methods begin with a lower case but not the constructor
+  		if(isQueueFull())
+  			System.out.println("full");  //and exit
+  		else
+  		{
+  			name = getName();
+  			if(isQueueEmpty())
+  				head = head+1;
+  			
+  			if(tail==SIZE-1)
+  				tail=-1;
+  			q[++tail]=name;
+        }
+  	}
+    public void deleteQueue(){
+    	String x; // to display name
+    	if(isQueueEmpty())
+    		System.out.println("Underflow");
+    	else
+    	{
+    		x = q[head];
+    		System.out.println("Servicing " + x);
+    		if(head==tail)
+    		{
+    			head=-1;
+    			tail=-1;
+    		}
+    		else
+    		{
+    			head++;
+    			if(head==SIZE)
+    				head=0;
+    		}
+    	}
+	 }
+
+    public void printQueueLogical() {
+    	int next;
+    	if(isQueueEmpty())
+    		System.out.println("Empty");
+    	else
+    	{
+    		next=head;
+    		
+	    	while(next!=tail){
+	    		System.out.println("q["+next+"]="+q[next]);
+	    		next++;
+	    	}
+	    	if(next==SIZE)
+	    		next=0;
+	    	System.out.println("q["+next+"]"+q[next]);
+    	}
+	}
+
+ 
+		
+		
+		public void printQueuePhysical()
+		{
+			for(int j = 0; j < SIZE; j++)
+				System.out.println("q["+j+"]=" + q[j]);
+		}
+		
+		private String getName(){
+			System.out.println("Enter Name:");
+			return input.nextLine();
+		}
+		
+		public boolean isQueueEmpty(){
+			return(head == -1);
+		}
+		
+		public boolean isQueueFull(){
+			return((tail - head + 1 == 0) || (tail - head + 1 == SIZE));
+		}
+}
+
+
+class TestCircularQueue{
+	public static void main(String[] args)
+	{
+		CircularQueue m = new CircularQueue();
+		for(int j=0;j<3;j++) {
+			m.insertQueue();
+		}
+	    m.deleteQueue();
+	    m.deleteQueue();
+		System.out.println("LogicalQueue");
+
+		m.printQueueLogical();
+		System.out.println("PhysicalQueue");
+		m.printQueuePhysical();
+	}
+}
