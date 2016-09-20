@@ -1,0 +1,80 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include <math.h>
+long long int product(long long int,long long int);
+int main(int argc,char **argv)
+{
+	long long int x,y;
+	int key,flag=0;
+	do
+	{
+		printf("Enter 1 to perform multiplication\n");
+		scanf("%d",&key);
+		if(key==1)
+		{
+			printf("Enter the first number: \n");
+			scanf("%lld",&x);
+			printf("Enter the second number: \n");
+			scanf("%lld",&y);
+			if(x<0 && y<0)
+				flag=1;
+				else if(x<0 || y<0)
+					flag=2;
+			
+			if(flag==1)
+					{
+						x=abs(x), y=abs(y);
+						printf("The product is: %lld \n",product(x,y));
+					}
+					else if(flag==2)
+					{
+						x=abs(x),y=abs(y);
+						printf("The product is: %lld \n",product(x,y)*-1);
+					}
+			            else
+							
+							printf("The product is: %lld \n",product(x,y));
+		}
+		else
+			printf("End of the program");
+	}
+	while(key==1);
+}
+
+
+long long int product(long long int m,long long int n)
+{
+    long long int temp,a[100],b[100],sum;
+	int arrayCount,i;
+		if(m>n)
+	{
+		temp=m;
+		m=n;
+		n=temp;
+	}
+	sum=0;	
+	a[0]=m;
+	b[0]=n;
+	i=1;
+	while(m>1)
+	{
+	a[i]=m/2;
+	b[i]=n*2;
+	m=a[i];
+	n=b[i];
+	i++;
+	}
+	
+          //Count the total number of elements after consecutively dividing by two
+        arrayCount=i;
+        for(i=0;i<arrayCount;i++)
+        {
+	if(a[i]%2!=0)
+	{
+	       //Obtain the product value by adding numbers corresponding with odd numbers in array list a 	
+             sum+=b[i];
+	}
+	     }
+     return sum;
+}
+
